@@ -26,8 +26,8 @@ services:
         # value with nothing.
         environment:
             - PAPERLESS_OCR_LANGUAGES=deu eng
-            - USERMAP_UID=1001
-            - USERMAP_GID=1002
+            - USERMAP_UID=1020
+            - USERMAP_GID=1020
         command: ["runserver", "--insecure", "--noreload", "0.0.0.0:8000"]
 
     consumer:
@@ -53,24 +53,11 @@ services:
         command: ["document_consumer"]
         environment:
             - PAPERLESS_OCR_LANGUAGES=deu eng
-            - USERMAP_UID=1001
-            - USERMAP_GID=1002
+            - USERMAP_UID=1020
+            - USERMAP_GID=1020
         tmpfs:
             - /tmp
 
-    rsync:
-        image: stefda/rsync
-        restart: always
-        volumes:
-            - paperless_consume:/volume
-        tmpfs:
-            - /tmp
-        #environment:
-        #    VOLUME: /var/www/app
-        #    USER: www-data
-        #    GROUP: www-data
-        ports:
-            - "873:873"
 
 volumes:
     paperless_data:
